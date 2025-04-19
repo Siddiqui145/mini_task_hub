@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_task_hub/auth/auth_service.dart';
 import 'package:mini_task_hub/auth/signup_screen.dart';
+import 'package:mini_task_hub/dashboard/dashboard_screen.dart';
 import 'package:mini_task_hub/widgets/custom_button.dart';
 import 'package:mini_task_hub/widgets/custom_text_filed.dart';
 
@@ -14,6 +17,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final _authService = AuthService();
+
+  void login() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    try {
+      await _authService.loginWithEmailAndPassword(
+        email,password);
+
+        if(!mounted) return;
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DashboardScreen()));
+    }
+    on FirebaseAuthException catch (e){
+      throw Exception(e.message);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 50,
             ),
             CustomButton(
-              label: 'Log In', onPressed: () {},
+              label: 'Log In', onPressed: login,
               backgroundColor: Colors.yellow.shade300,),
 
               const SizedBox(
