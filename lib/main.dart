@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_task_hub/auth/login_screen.dart';
 import 'package:mini_task_hub/splash_screen.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter To-Do App',
       theme: ThemeData(
       ),
-      home: SplashScreen()
+      //home: SplashScreen()
+      home: LoginScreen(),
     );
   }
 }
