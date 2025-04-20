@@ -6,48 +6,71 @@ class CustomTextFiled extends StatefulWidget {
     this.height,
     required this.controller,
     this.icon,
-    this.isPassword
-    });
+    this.isPassword,
+    this.validator,
+    this.hintText,
+  });
 
-    final double ?height;
-    final TextEditingController controller;
-    final IconData  ?icon;
-    final bool ?isPassword;
+  final double? height;
+  final TextEditingController controller;
+  final IconData? icon;
+  final bool? isPassword;
+  final String? Function(String?)? validator;
+  final String? hintText;
 
   @override
   State<CustomTextFiled> createState() => _CustomTextFiledState();
 }
 
 class _CustomTextFiledState extends State<CustomTextFiled> {
+  final FocusNode _focusNode = FocusNode();
+  bool _isFocused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      setState(() {
+        _isFocused = _focusNode.hasFocus;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: widget.height ?? 45,
-      padding: EdgeInsets.symmetric(
-        horizontal: 15
-      ),
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(69, 90, 100, 1),
-        borderRadius: BorderRadius.circular(8)
-      ),
-
-      child: Center(
-        child: TextField(
-          controller: widget.controller,
-          obscureText: widget.isPassword ?? false,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: Colors.white
+    return SizedBox(
+      height: widget.height ?? 60,
+      child: TextFormField(
+        controller: widget.controller,
+        obscureText: widget.isPassword ?? false,
+        validator: widget.validator,
+        focusNode: _focusNode,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: _isFocused ? const Color(0xFF37474F) : const Color(0xFF263238),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          prefixIcon: widget.icon != null
+              ? Icon(widget.icon, color: _isFocused ? Colors.white : Colors.grey[400])
+              : null,
+          hintText: widget.hintText,
+          hintStyle: TextStyle(color: Colors.grey[400]),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
           ),
-          
-          textAlign: TextAlign.start,
-          decoration: InputDecoration(
-            icon: widget.icon != null ? Icon(widget.icon) : null,
-            iconColor: Colors.white
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.white, width: 1.2),
           ),
-          
-        
-        
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.red, width: 1.2),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
         ),
       ),
     );
