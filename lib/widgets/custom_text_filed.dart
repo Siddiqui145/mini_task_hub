@@ -38,39 +38,30 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: widget.height ?? 60,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: _isFocused ? const Color(0xFF37474F) : const Color(0xFF263238),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: _isFocused ? Colors.white : Colors.transparent,
+          width: 1.2,
+        ),
+      ),
       child: TextFormField(
         controller: widget.controller,
         obscureText: widget.isPassword ?? false,
         validator: widget.validator,
         focusNode: _focusNode,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          filled: true,
-          fillColor: _isFocused ? const Color(0xFF37474F) : const Color(0xFF263238),
-          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          prefixIcon: widget.icon != null
-              ? Icon(widget.icon, color: _isFocused ? Colors.white : Colors.grey[400])
-              : null,
+          border: InputBorder.none,
           hintText: widget.hintText,
           hintStyle: TextStyle(color: Colors.grey[400]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.white, width: 1.2),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.red, width: 1.2),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
-          ),
+          icon: widget.icon != null
+              ? Icon(widget.icon, color: _isFocused ? Colors.white : Colors.grey[400])
+              : null,
         ),
       ),
     );
