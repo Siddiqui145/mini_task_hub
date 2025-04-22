@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFiled extends StatefulWidget {
-  const CustomTextFiled({
+class CustomTextField extends StatefulWidget {
+  const CustomTextField({
     super.key,
     this.height,
     required this.controller,
@@ -9,6 +9,7 @@ class CustomTextFiled extends StatefulWidget {
     this.isPassword,
     this.validator,
     this.hintText,
+    this.maxLines,
   });
 
   final double? height;
@@ -17,12 +18,13 @@ class CustomTextFiled extends StatefulWidget {
   final bool? isPassword;
   final String? Function(String?)? validator;
   final String? hintText;
+  final int? maxLines;
 
   @override
-  State<CustomTextFiled> createState() => _CustomTextFiledState();
+  State<CustomTextField> createState() => _CustomTextFiledState();
 }
 
-class _CustomTextFiledState extends State<CustomTextFiled> {
+class _CustomTextFiledState extends State<CustomTextField> {
   final FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
 
@@ -54,6 +56,7 @@ class _CustomTextFiledState extends State<CustomTextFiled> {
         obscureText: widget.isPassword ?? false,
         validator: widget.validator,
         focusNode: _focusNode,
+        maxLines: widget.maxLines ?? 1,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           border: InputBorder.none,
