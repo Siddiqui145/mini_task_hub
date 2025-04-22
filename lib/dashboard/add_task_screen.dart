@@ -56,6 +56,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
     if(!mounted) return;
     showSuccessMessage(context, "Task Saved Successfully!");
+    Navigator.of(context).pop();
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
   }
 
@@ -65,12 +66,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(33, 40, 50, 1),
         appBar: AppBar(
-          title: Text('Create New Task',style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white),),
-          centerTitle: true,
-          backgroundColor: Color.fromRGBO(33, 40, 50, 1),
-          foregroundColor: Colors.white,
+          title: Text('Create New Task',style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500)),
         ),
       
         body: SingleChildScrollView(
@@ -82,7 +79,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 height: 25,
               ),
               Text('Task Title',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),),
+              style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(
                 height: 25,
               ),
@@ -92,7 +89,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
       
               Text('Task Details',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),),
+              style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(
                 height: 25,
               ),
@@ -102,7 +99,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
       
               Text('Task to be Completed by',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),),
+              style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(
                 height: 25,
               ),
@@ -124,7 +121,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               CustomButton(
               label: 'Create', 
               onPressed: uploadUserTask,
-              backgroundColor: Colors.yellow.shade300,
               )
             ],
           ),),

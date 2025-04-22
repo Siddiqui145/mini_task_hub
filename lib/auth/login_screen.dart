@@ -57,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(33, 40, 50, 1),
         body: SingleChildScrollView(
           child: Padding(padding: EdgeInsets.all(16),
           child: Form(
@@ -73,16 +72,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 45,
                 ),
                 Text("Welcome Back!",
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: Colors.white
-                ),),
+                style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(
                   height: 15,
                 ),
                 Text("Email Address",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(
                   height: 20,
                 ),
@@ -102,9 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 35,
                 ),
                 Text("Password",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(
                   height: 20,
                 ),
@@ -119,30 +112,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 CustomButton(
                   label: 'Log In', onPressed: login,
-                  backgroundColor: Colors.yellow.shade300,),
+                  ),
             
                   const SizedBox(
                   height: 30,
                 ),
-                Text("------------------------  Or continue with  -----------------------",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                Center(
+                  child: Text("Or continue with",
+                  style: Theme.of(context).textTheme.bodyMedium),
+                ),
                   const SizedBox(
                   height: 30,
                 ),
                 CustomButton(
                   label: 'Google', onPressed: () {},
                   backgroundColor: Colors.transparent,
-                  textColor: Colors.white,),
+                  ),
             
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Don't have an account?",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium),
             
                 TextButton(
                   onPressed: () {
@@ -150,8 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Text("Sign Up",
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.yellow.shade300
-                ),), ),
+                    color: Colors.yellow.shade300
+                  )), ),
                     ],
                   )
               ],

@@ -55,7 +55,6 @@ class _SignupScreenState extends State<SignupScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(33, 40, 50, 1),
         body: SingleChildScrollView(
           child: Padding(padding: EdgeInsets.all(16),
           child: Form(
@@ -71,17 +70,13 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 45,
                 ),
                 Text("Create your account",
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: Colors.white
-                ),),
+                style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(
                   height: 15,
                 ),
             
                 Text("Full Name",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(
                   height: 20,
                 ),
@@ -94,9 +89,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
             
                 Text("Email Address",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(
                   height: 20,
                 ),
@@ -116,9 +109,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 25,
                 ),
                 Text("Password",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium),
                 const SizedBox(
                   height: 20,
                 ),
@@ -156,7 +147,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     TextSpan(
                       text: "I have read & agreed to DayTask ",
-                      style: TextStyle(color: Colors.blueGrey),
                     ),
                     TextSpan(
                       text: "Privacy Policy, Terms & Conditions",
@@ -182,10 +172,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   const SizedBox(
                   height: 30,
                 ),
-                Text("------------------------  Or continue with  -----------------------",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                Center(
+                  child: Text("Or continue with",
+                  style: Theme.of(context).textTheme.bodyMedium),
+                ),
                   const SizedBox(
                   height: 30,
                 ),
@@ -198,9 +188,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Already have an account?",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Colors.blueGrey
-                ),),
+                style: Theme.of(context).textTheme.bodyMedium),
             
                 TextButton(
                   onPressed: () {

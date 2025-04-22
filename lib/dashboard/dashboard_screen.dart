@@ -1,30 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mini_task_hub/auth/login_screen.dart';
 import 'package:mini_task_hub/dashboard/task_details_screen.dart';
+import 'package:mini_task_hub/providers/cubit_theme.dart';
 import 'package:mini_task_hub/widgets/custom_messages.dart';
 import 'add_task_screen.dart';
 import 'task_card.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
 
-    Future<void> signout() async {
+class _DashboardScreenState extends State<DashboardScreen> {
+
+  Future<void> signout() async {
       await FirebaseAuth.instance.signOut();
+      if(!mounted) return;
       showSuccessMessage(context, "Logged out successfully!");
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
     }
+
+  @override
+  Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    final themeMode = context.watch<CubitTheme>().state;
+    final isDark = themeMode == ThemeMode.dark;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF212832),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF212832),
         elevation: 0,
         toolbarHeight: 90,
         title: Row(
@@ -42,21 +51,22 @@ class DashboardScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   user?.email ?? '',
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        color: Colors.white,
-                      ),
+                  style: Theme.of(context).textTheme.titleSmall,
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
             const CircleAvatar(
-              radius: 32,
+              radius: 20,
               backgroundImage: AssetImage('assets/images/profile.jpeg'),
             ),
           ],
         ),
         actions: [
-          IconButton(onPressed: signout, icon: Icon(Icons.logout))
+          IconButton(onPressed: signout, icon: Icon(Icons.logout)),
+          Switch(value: isDark, onChanged: (value) {
+            context.read<CubitTheme>().toggleTheme(value);
+          } )
         ],
       ),
       body: Padding(
@@ -77,13 +87,13 @@ class DashboardScreen extends StatelessWidget {
 ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.yellow.shade300,
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (_) => const AddTaskScreen()),
           );
         },
-        child: const Icon(Icons.add, color: Colors.black),
+        child: const Icon(Icons.add
+        )
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
@@ -94,17 +104,11 @@ class DashboardScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title,
-            style: const TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            )),
-        const Text(
+            style: Theme.of(context).textTheme.titleSmall
+            ),
+         Text(
           'See all',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white54,
-          ),
+          style: Theme.of(context).textTheme.bodySmall
         ),
       ],
     );
@@ -129,10 +133,10 @@ class DashboardScreen extends StatelessWidget {
 }
 
       if (snapshot.hasData && snapshot.data!.docs.isEmpty) {
-  return const Center(
+  return Center(
     child: Text(
       "No Tasks Completed Yet!",
-      style: TextStyle(color: Colors.white70),
+      style: Theme.of(context).textTheme.bodyMedium
     ),
   );
 }

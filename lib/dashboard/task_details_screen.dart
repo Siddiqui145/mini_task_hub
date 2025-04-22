@@ -29,10 +29,7 @@ class TaskDetailScreen extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF212832),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF212832),
-        foregroundColor: Colors.white,
         elevation: 0,
         title: const Text('Task Details'),
         actions: [
@@ -71,11 +68,7 @@ class TaskDetailScreen extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: textTheme.titleLarge!.copyWith(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: textTheme.titleLarge
                 ),
                 const SizedBox(height: 24),
                 Row(
@@ -100,15 +93,12 @@ class TaskDetailScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 Text(
                   'Project Details',
-                  style: textTheme.titleMedium!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: textTheme.titleMedium
                 ),
                 const SizedBox(height: 8),
                 Text(
                   details,
-                  style: textTheme.bodyMedium!.copyWith(color: Colors.white70),
+                  style: textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 32),
                 Row(
@@ -116,10 +106,7 @@ class TaskDetailScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Project Progress',
-                      style: textTheme.titleMedium!.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: textTheme.titleMedium
                     ),
                     Stack(
                       alignment: Alignment.center,
@@ -136,7 +123,7 @@ class TaskDetailScreen extends StatelessWidget {
                         ),
                         Text(
                           progressText,
-                          style: textTheme.bodyMedium!.copyWith(color: Colors.white),
+                          style: textTheme.bodyMedium
                         ),
                       ],
                     ),
@@ -145,15 +132,12 @@ class TaskDetailScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 Text(
                   'Project Created At:',
-                  style: textTheme.titleMedium!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: textTheme.titleMedium
                 ),
                 SizedBox(height: 15,),
                 Text(
                   formattedCreatedAt.toString(),
-                  style: textTheme.bodyMedium!.copyWith(color: Colors.white70),
+                  style: textTheme.bodyMedium
                 ),
                 const SizedBox(height: 75),
 
@@ -164,9 +148,6 @@ class TaskDetailScreen extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: updateStatus, 
                     icon: Icon(Icons.done),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.yellow.shade300,
-                    ),
                     label: Text('Mark as Completed?',style: textTheme.bodyMedium,),),
                 )
 
