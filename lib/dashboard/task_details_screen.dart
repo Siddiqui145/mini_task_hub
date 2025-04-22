@@ -12,9 +12,31 @@ class TaskDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     Future<void> deleteTask() async {
-      FirebaseFirestore.instance.collection("tasks").doc(taskId).delete();
-      Navigator.of(context).pop();
-      showSuccessMessage(context, "Task Deleted Successfully!");
+      showDialog(context: context, builder: (context) {
+      return AlertDialog(
+        content: Text("Do you want to Delete this Task?",
+        style: Theme.of(context).textTheme.titleMedium,),
+        actions: [
+          TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text("No",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: Colors.green
+          ),)),
+
+          TextButton(
+          onPressed: () async {
+            await FirebaseFirestore.instance.collection("tasks").doc(taskId).delete();
+
+            if(!context.mounted) return;
+                  Navigator.of(context).pop();
+                  showSuccessMessage(context, "Task Deleted Successfully!");
+          },
+          child: Text("Yes",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: Colors.green
+          ),))
+        ],
+      );
+    });
     }
 
     Future<void> updateStatus() async{

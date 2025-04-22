@@ -20,10 +20,30 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> signout() async {
-      await FirebaseAuth.instance.signOut();
-      if(!mounted) return;
-      showSuccessMessage(context, "Logged out successfully!");
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+    showDialog(context: context, builder: (context) {
+      return AlertDialog(
+        content: Text("Do you really want to Logout?",
+        style: Theme.of(context).textTheme.titleMedium,),
+        actions: [
+          TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text("No",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: Colors.green
+          ),)),
+
+          TextButton(
+          onPressed: () async {
+            await FirebaseAuth.instance.signOut();
+            if(!context.mounted) return;
+            showSuccessMessage(context, "Logged out successfully!");
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+          },
+          child: Text("Yes",style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            color: Colors.green
+          ),))
+        ],
+      );
+    });
     }
 
   @override
