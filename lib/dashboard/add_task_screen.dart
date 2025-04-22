@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mini_task_hub/dashboard/dashboard_screen.dart';
 import 'package:mini_task_hub/widgets/custom_button.dart';
+import 'package:mini_task_hub/widgets/custom_messages.dart';
 import 'package:mini_task_hub/widgets/custom_text_filed.dart';
 import 'package:mini_task_hub/widgets/time_date_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -11,11 +15,49 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+  TimeOfDay? selectedTime;
+  DateTime? selectedDate;
 
   final taskTitleController = TextEditingController();
   final taskDetailsController = TextEditingController();
 
-  void addTaskToDb() {}
+
+  Future<void> uploadUserTask() async{
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final title = taskTitleController.text.trim();
+    final details = taskDetailsController.text.trim();
+
+    if (selectedDate == null || selectedTime == null) {
+     showErrorMessage(context, "Select Time& Date");
+      return;
+    }
+
+    if (title.isEmpty || details.isEmpty) {
+    showErrorMessage(context, "Title & Details can't be empty!"); 
+      return;
+    }
+
+    final DateTime taskDateTime = DateTime(
+      selectedDate!.year,
+      selectedDate!.month,
+      selectedDate!.day,
+      selectedTime!.hour,
+      selectedTime!.minute,
+    );
+
+    await FirebaseFirestore.instance.collection("tasks").add({
+      "uid": userId,
+      "title": title,
+      "details": details,
+      "taskDateTime": taskDateTime.toIso8601String(),
+      "createdAt": DateTime.now().toIso8601String(),
+      "completed": false,
+    });
+
+    if(!mounted) return;
+    showSuccessMessage(context, "Task Saved Successfully!");
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => DashboardScreen()));
+  }
 
 
   @override
@@ -63,16 +105,21 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               height: 25,
             ),
             TimeDatePickerRow(onTimeSelected: (time) {
-              print("Selected time: $time");
+              setState(() {
+                selectedTime = time;
+              });
             }, onDateSelected: (date) {
-              print("Selected date: $date");
+              setState(() {
+                selectedDate = date;
+              });
             }),
 
             const SizedBox(
               height: 65,
             ),
             CustomButton(
-            label: 'Create', onPressed: addTaskToDb,
+            label: 'Create', 
+            onPressed: uploadUserTask,
             backgroundColor: Colors.yellow.shade300,
             )
           ],
