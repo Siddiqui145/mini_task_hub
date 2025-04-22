@@ -49,9 +49,7 @@ class TaskDetailScreen extends StatelessWidget {
           final details = task['details'] ?? '';
           final dueDate = DateTime.tryParse(task['taskDateTime'] ?? '') ?? DateTime.now();
           final createdAt = DateTime.tryParse(task['createdAt'] ?? '') ?? DateTime.now();
-          final formattedCreatedAt 
-              ? DateFormat('d MMMM yyyy, h:mm a').format(createdAt)
-              : 'Unknown';
+          final formattedCreatedAt = DateFormat('d MMMM yyyy, h:mm a').format(createdAt);
           final isCompleted = task['completed'] ?? false;
 
           final progressValue = isCompleted ? 1.0 : 0.6;

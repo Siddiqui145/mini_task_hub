@@ -31,6 +31,9 @@ class _TimeDatePickerRowState extends State<TimeDatePickerRow> {
   }
 
   Future<void> _pickTime() async {
+    FocusScope.of(context).unfocus();
+    await Future.delayed(Duration(milliseconds: 50));
+  FocusManager.instance.primaryFocus?.unfocus(); 
     final picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
@@ -42,6 +45,8 @@ class _TimeDatePickerRowState extends State<TimeDatePickerRow> {
   }
 
   Future<void> _pickDate() async {
+    await Future.delayed(Duration(milliseconds: 50));
+  FocusManager.instance.primaryFocus?.unfocus(); 
     final picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
