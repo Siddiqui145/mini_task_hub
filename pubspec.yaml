@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.20.2
   flutter_blob: ^0.0.1
   flutter_bloc: ^9.1.0
+  flutter_animate: ^4.5.2
 
 dev_dependencies:
   flutter_test:

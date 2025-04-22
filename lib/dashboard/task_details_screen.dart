@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import 'package:mini_task_hub/widgets/custom_messages.dart';
 
@@ -109,7 +110,7 @@ class TaskDetailScreen extends StatelessWidget {
                         'assets/images/avatars/avatar2.jpg',
                         'assets/images/avatars/avatar3.jpeg',
                       ],
-                    ),
+                    ).animate().fadeIn(delay: 200.ms),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -146,7 +147,7 @@ class TaskDetailScreen extends StatelessWidget {
                         Text(
                           progressText,
                           style: textTheme.bodyMedium
-                        ),
+                        ).animate().slideY(),
                       ],
                     ),
                   ],
@@ -160,7 +161,7 @@ class TaskDetailScreen extends StatelessWidget {
                 Text(
                   formattedCreatedAt.toString(),
                   style: textTheme.bodyMedium
-                ),
+                ).animate().fadeIn().scale(),
                 const SizedBox(height: 75),
 
                 if(!isCompleted)

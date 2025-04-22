@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:mini_task_hub/auth/login_screen.dart';
@@ -95,7 +96,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       const SizedBox(height: 50),
-      _buildSectionHeader('Completed Tasks'),
+      _buildSectionHeader('Completed Tasks').animate().fade(duration: 300.ms).slideX(begin: -0.1),
       const SizedBox(height: 16),
       _buildTaskStream(context, isCompleted: true),
       const SizedBox(height: 32),
@@ -187,7 +188,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   dueDate:  null,
                   isCompleted: isCompleted,
                   progress: progress,
-                ),
+                ).animate()
+                .fade(duration: 400.ms)
+                .slideY(begin: 0.2)
+                .then(delay: 100.ms),
               );
             },
           ),
@@ -217,7 +221,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     dueDate: isCompleted ? null : dueDate,
                     isCompleted: isCompleted,
                     progress: progress,
-                  ),
+                  ).animate()
+                .fade(duration: 400.ms)
+                .slideY(begin: 0.2)
+                .then(delay: 100.ms),
                 ),
               );
             },

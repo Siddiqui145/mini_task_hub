@@ -45,7 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if(!mounted) return;
 
         showSuccessMessage(context, "User Successfully logged In!");
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+        //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
+        Navigator.of(context).pushAndRemoveUntil(
+  MaterialPageRoute(builder: (context) => const DashboardScreen()),
+  (Route<dynamic> route) => false,
+);
+
     }
     catch (e){
       showErrorMessage(context, e.toString());
