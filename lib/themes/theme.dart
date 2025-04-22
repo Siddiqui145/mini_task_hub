@@ -44,6 +44,9 @@ final lightTheme = ThemeData(
       foregroundColor: Colors.black87
     ),
   ),
+  dialogTheme: AlertDialog(
+    backgroundColor: Colors.grey.shade700,
+  ),
 );
 
 final darkTheme = ThemeData(
@@ -80,5 +83,8 @@ final darkTheme = ThemeData(
       backgroundColor: Colors.yellow.shade800,
       foregroundColor: Colors.white70
     )
-  )
+  ),
+  dialogTheme: AlertDialog(
+    backgroundColor: Colors.yellow.shade800,
+  ),
 );
