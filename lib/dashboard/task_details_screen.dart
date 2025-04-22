@@ -15,7 +15,7 @@ class TaskDetailScreen extends StatelessWidget {
       showDialog(context: context, builder: (context) {
       return AlertDialog(
         content: Text("Do you want to Delete this Task?",
-        style: Theme.of(context).textTheme.titleMedium,),
+        style: Theme.of(context).textTheme.bodyMedium,),
         actions: [
           TextButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -32,7 +32,7 @@ class TaskDetailScreen extends StatelessWidget {
                   showSuccessMessage(context, "Task Deleted Successfully!");
           },
           child: Text("Yes",style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            color: Colors.green
+            color: Colors.red
           ),))
         ],
       );

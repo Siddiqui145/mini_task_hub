@@ -85,6 +85,6 @@ final darkTheme = ThemeData(
     )
   ),
   dialogTheme: DialogTheme(
-    backgroundColor: Colors.yellow.shade800,
+    backgroundColor: Colors.blueGrey.shade700,
   ),
 );

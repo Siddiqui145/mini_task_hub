@@ -23,7 +23,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     showDialog(context: context, builder: (context) {
       return AlertDialog(
         content: Text("Do you really want to Logout?",
-        style: Theme.of(context).textTheme.titleMedium,),
+        style: Theme.of(context).textTheme.bodyMedium,),
         actions: [
           TextButton(
           onPressed: () => Navigator.of(context).pop(),
@@ -39,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
           },
           child: Text("Yes",style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            color: Colors.green
+            color: Colors.red
           ),))
         ],
       );
