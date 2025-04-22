@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
         if(!mounted) return;
 
         showSuccessMessage(context, "User Successfully logged In!");
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DashboardScreen()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => DashboardScreen()));
     }
     catch (e){
       showErrorMessage(context, e.toString());
@@ -54,105 +54,110 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(33, 40, 50, 1),
-      body: SingleChildScrollView(
-        child: Padding(padding: EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Center(child: Image.asset("assets/images/dashboard.png"),),
-              const SizedBox(
-                height: 45,
-              ),
-              Text("Welcome Back!",
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: Colors.white
-              ),),
-              const SizedBox(
-                height: 15,
-              ),
-              Text("Email Address",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.blueGrey
-              ),),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextFiled(
-              controller: emailController,
-              icon: Icons.perm_contact_cal,
-              validator: (value) {
-                    if (value == null || value.isEmpty) return 'Email cannot be empty';
-                    if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
-                      return "Enter a valid email!";
-                    }
-                    return null;
-                  },),
-          
-              const SizedBox(
-                height: 35,
-              ),
-              Text("Password",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.blueGrey
-              ),),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextFiled(
-              controller: passwordController,
-              icon: Icons.lock_open,
-              isPassword: true),
-          
-              const SizedBox(
-                height: 50,
-              ),
-              CustomButton(
-                label: 'Log In', onPressed: login,
-                backgroundColor: Colors.yellow.shade300,),
-          
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: Color.fromRGBO(33, 40, 50, 1),
+        body: SingleChildScrollView(
+          child: Padding(padding: EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 const SizedBox(
-                height: 30,
-              ),
-              Text("------------------------  Or continue with  -----------------------",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.blueGrey
-              ),),
+                  height: 50,
+                ),
+                Center(child: Image.asset("assets/images/dashboard.png"),),
                 const SizedBox(
-                height: 30,
-              ),
-              CustomButton(
-                label: 'Google', onPressed: () {},
-                backgroundColor: Colors.transparent,
-                textColor: Colors.white,),
-          
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Don't have an account?",
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.blueGrey
-              ),),
-          
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupScreen()));
-                },
-                child: Text("Sign Up",
+                  height: 45,
+                ),
+                Text("Welcome Back!",
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  color: Colors.white
+                ),),
+                const SizedBox(
+                  height: 15,
+                ),
+                Text("Email Address",
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Colors.yellow.shade300
-              ),), ),
-                  ],
-                )
-            ],
-          ),
-        ),),
+                  color: Colors.blueGrey
+                ),),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                controller: emailController,
+                icon: Icons.perm_contact_cal,
+                hintText: "Email",
+                validator: (value) {
+                      if (value == null || value.isEmpty) return 'Email cannot be empty';
+                      if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)) {
+                        return "Enter a valid email!";
+                      }
+                      return null;
+                    },),
+            
+                const SizedBox(
+                  height: 35,
+                ),
+                Text("Password",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Colors.blueGrey
+                ),),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                controller: passwordController,
+                hintText: "Password",
+                icon: Icons.lock_open,
+                isPassword: true),
+            
+                const SizedBox(
+                  height: 50,
+                ),
+                CustomButton(
+                  label: 'Log In', onPressed: login,
+                  backgroundColor: Colors.yellow.shade300,),
+            
+                  const SizedBox(
+                  height: 30,
+                ),
+                Text("------------------------  Or continue with  -----------------------",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Colors.blueGrey
+                ),),
+                  const SizedBox(
+                  height: 30,
+                ),
+                CustomButton(
+                  label: 'Google', onPressed: () {},
+                  backgroundColor: Colors.transparent,
+                  textColor: Colors.white,),
+            
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't have an account?",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Colors.blueGrey
+                ),),
+            
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupScreen()));
+                  },
+                  child: Text("Sign Up",
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Colors.yellow.shade300
+                ),), ),
+                    ],
+                  )
+              ],
+            ),
+          ),),
+        ),
       ),
     );
   }
