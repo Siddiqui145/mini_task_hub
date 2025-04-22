@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mini_task_hub/themes/task_card_theme.dart';
 
 class TaskCard extends StatelessWidget {
   final String title;
@@ -17,104 +18,106 @@ class TaskCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 175,
-      margin: const EdgeInsets.only(right: 16),
-      padding: const EdgeInsets.only(left: 16, right: 8, bottom: 8),
-      decoration: BoxDecoration(
-        color: isCompleted ? Colors.grey.shade100 : const Color(0xFF2A323E),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: isCompleted ? Colors.black : Colors.white,
-              fontSize: 18,
-              height: 1.3,
-            ),
+Widget build(BuildContext context) {
+  final theme = Theme.of(context).extension<TaskCardTheme>()!;
+  final bool completed = isCompleted;
+
+  return Container(
+    width: 175,
+    margin: const EdgeInsets.only(right: 16),
+    padding: const EdgeInsets.only(left: 16, right: 8, bottom: 8),
+    decoration: BoxDecoration(
+      color: completed ? Colors.grey.shade100 : theme.backgroundColor,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: completed ? Colors.black : theme.foregroundColor,
+            fontSize: 18,
+            height: 1.3,
           ),
-          const SizedBox(height: 16),
-          Text(
-            label,
-            style: TextStyle(
-              color: isCompleted ? Colors.black87 : Colors.white70,
-              fontSize: 13,
-            ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          label,
+          style: TextStyle(
+            color: completed ? Colors.black87 : theme.labelColor,
+            fontSize: 13,
           ),
-          const SizedBox(height: 5),
+        ),
+        const SizedBox(height: 5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            CircleAvatar(radius: 18, backgroundImage: AssetImage("assets/images/avatars/avatar1.jpg")),
+            CircleAvatar(radius: 18, backgroundImage: AssetImage("assets/images/avatars/avatar2.jpg")),
+            CircleAvatar(radius: 18, backgroundImage: AssetImage("assets/images/avatars/avatar3.jpeg")),
+          ],
+        ),
+        const SizedBox(height: 16),
+        if (completed) ...[
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundImage: AssetImage("assets/images/avatars/avatar1.jpg"),
+              Text(
+                'Completed',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: theme.completedTextColor,
+                  fontSize: 14,
+                ),
               ),
-              CircleAvatar(
-                radius: 18,
-                backgroundImage: AssetImage("assets/images/avatars/avatar2.jpg"),
-              ),
-              CircleAvatar(
-                radius: 18,
-                backgroundImage: AssetImage("assets/images/avatars/avatar3.jpeg"),
+              Text(
+                '100%',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: theme.completedTextColor,
+                  fontSize: 14,
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          if (isCompleted) ...[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Completed',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                    fontSize: 14,
+        ] else ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Due on : $dueDate',
+                style: TextStyle(
+                  color: theme.labelColor,
+                  fontSize: 13,
+                ),
+              ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 32,
+                    height: 32,
+                    child: CircularProgressIndicator(
+                      value: progress / 100,
+                      strokeWidth: 4,
+                      valueColor: AlwaysStoppedAnimation<Color>(theme.progressColor),
+                      backgroundColor: Colors.white12,
+                    ),
                   ),
-                ),
-                const Text(
-                  '100%',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-              ],
-            ),
-          ] else ...[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Due on : $dueDate',
-                  style: const TextStyle(color: Colors.white70, fontSize: 13),
-                ),
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 32,
-                      height: 32,
-                      child: CircularProgressIndicator(
-                        value: progress / 100,
-                        strokeWidth: 4,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow.shade300),
-                        backgroundColor: Colors.white12,
-                      ),
-                    ),
-                    Text(
-                      '$progress%',
-                      style: const TextStyle(color: Colors.white, fontSize: 10),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ],
+                  Text(
+                    '$progress%',
+                    style: TextStyle(color: theme.foregroundColor, fontSize: 10),
+                  ),
+                ],
+              )
+            ],
+          ),
         ],
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
+
 }
