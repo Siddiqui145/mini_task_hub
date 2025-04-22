@@ -11,6 +11,12 @@ class TaskDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    Future<void> deleteTask() async {
+      FirebaseFirestore.instance.collection("tasks").doc(taskId).delete();
+      Navigator.of(context).pop();
+      showSuccessMessage(context, "Task Deleted Successfully!");
+    }
+
     Future<void> updateStatus() async{
       FirebaseFirestore.instance.collection("tasks").doc(taskId).update({
         "completed": true
@@ -29,8 +35,11 @@ class TaskDetailScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 0,
         title: const Text('Task Details'),
-        actions: const [
-          Icon(Icons.refresh, color: Colors.white),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: deleteTask,
+          ),
           SizedBox(width: 16),
         ],
       ),
